@@ -35,7 +35,7 @@ export const reducer = (state: ApplicationData, action: any) => {
           return {
             ...state,
             [action.payload.name]: action.payload.value,
-            ['onlineSaleParcent']: '',
+            ['onlineSaleParcent']: null,
             ['onlineOrderMode']: '',
           };
         case 'productInfo':
@@ -44,11 +44,11 @@ export const reducer = (state: ApplicationData, action: any) => {
             [action.payload.name]: action.payload.value,
             ['productName']: '',
             ['productUnit']: '',
-            ['unitPrice']: '',
-            ['vatParcent']: '',
-            ['sdPercent']: '',
-            ['priceIncludingVat']: '',
-            ['priceExcludingVat']: '',
+            ['unitPrice']: null,
+            ['vatParcent']: null,
+            ['sdPercent']: null,
+            ['priceIncludingVat']: 0,
+            ['priceExcludingVat']: 0,
           };
         case 'mobileOperator':
           return {

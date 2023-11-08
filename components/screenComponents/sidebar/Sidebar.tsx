@@ -9,19 +9,46 @@ import {
 } from 'react-native-heroicons/solid';
 import TextComponent from '../../ui/TextComponent';
 import {useNavigation} from '@react-navigation/native';
-import {RootParamList} from '../../../utils/navigationtype';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {NavigationType} from '../../../utils/navigationtype';
+import {UserType} from '../../../utils/asyncStorage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import {API} from '../../../utils/endpoint';
+import {useToast} from 'react-native-toast-notifications';
 
-type Navigattiontype = NativeStackNavigationProp<
-  RootParamList,
-  'home' | 'form' | 'profile'
->;
 interface SidebarType {
   setOpen: (open: boolean) => void;
+  user: UserType | undefined;
+  setUser: (open: UserType | null) => void;
 }
 
-const Sidebar: React.FC<SidebarType> = ({setOpen}) => {
-  const navigation = useNavigation<Navigattiontype>();
+const Sidebar: React.FC<SidebarType> = ({setOpen, user, setUser}) => {
+  const toast = useToast();
+  const navigation = useNavigation<NavigationType>();
+
+  const handleLogout = async (): Promise<void> => {
+    try {
+      const {data} = await axios.post(
+        API + '/logout',
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user?.access_token}`,
+          },
+        },
+      );
+      if (data) {
+        await AsyncStorage.removeItem('userData');
+        setUser(null);
+      }
+    } catch (err) {
+      toast.show('Something went wrong...', {
+        type: 'custom_error',
+      });
+    }
+  };
+
   return (
     <View className="bg-gray-600 flex-1 relative">
       <Pressable
@@ -57,7 +84,9 @@ const Sidebar: React.FC<SidebarType> = ({setOpen}) => {
             style="text-[18px] font-thin text-white ml-3"
           />
         </Pressable>
-        <Pressable className="flex flex-row items-center mb-8">
+        <Pressable
+          className="flex flex-row items-center mb-8"
+          onPress={() => handleLogout()}>
           <ArrowRightOnRectangleIcon size={25} color="white" />
           <TextComponent
             content="Logout"

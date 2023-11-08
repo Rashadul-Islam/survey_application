@@ -15,7 +15,7 @@ import {
   businessSubCategories,
 } from '../../../sampleData/businessCategories';
 
-const Form2: React.FC<FormType> = ({state, dispatch, preview}) => {
+const Form2: React.FC<FormType> = ({state, dispatch, preview, errorData}) => {
   return (
     <View className="w-[85%] mx-auto">
       <View className="w-full h-[70px] mt-5">
@@ -26,8 +26,8 @@ const Form2: React.FC<FormType> = ({state, dispatch, preview}) => {
         <DateInput
           preview={preview}
           handleChange={dispatch}
-          name="startDate"
-          date={state.startDate}
+          name="businessStartDate"
+          date={state.businessStartDate}
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -42,6 +42,7 @@ const Form2: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={businessCategories}
           search={true}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       {state?.category && (
@@ -57,6 +58,7 @@ const Form2: React.FC<FormType> = ({state, dispatch, preview}) => {
             data={businessSubCategories[state?.category]}
             search={true}
             preview={preview}
+            errorData={errorData}
           />
         </View>
       )}
@@ -67,12 +69,13 @@ const Form2: React.FC<FormType> = ({state, dispatch, preview}) => {
         />
         <InputComponent
           style="text-[18px] text-black border-b"
-          placeholder="example:2"
+          placeholder="example: 2"
           handleChange={dispatch}
           name="numberOfOutlet"
           defaultValue={state.numberOfOutlet}
           preview={preview}
-          type="numeric"
+          errorData={errorData}
+          keyboardType="number-pad"
         />
       </View>
       <View className="w-full mb-3 mt-5">
@@ -82,12 +85,13 @@ const Form2: React.FC<FormType> = ({state, dispatch, preview}) => {
         />
         <InputComponent
           style="text-[18px] text-black border-b"
-          placeholder="example:2"
+          placeholder="example: 2"
           handleChange={dispatch}
           name="numberOfCounter"
           defaultValue={state.numberOfCounter}
           preview={preview}
-          type="numeric"
+          errorData={errorData}
+          keyboardType="number-pad"
         />
       </View>
       <View className="w-full mb-3">
@@ -105,12 +109,14 @@ const Form2: React.FC<FormType> = ({state, dispatch, preview}) => {
         )}
         <InputComponent
           style="text-[18px] text-black border-b"
-          placeholder="example:2"
+          placeholder="example:1234XXXXX-XXXX"
           handleChange={dispatch}
           name="differentBin"
           defaultValue={state.differentBin}
           preview={preview}
-          type="numericSymbol"
+          type="binRegex"
+          errorData={errorData}
+          optional={true}
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -125,6 +131,7 @@ const Form2: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={transactionData}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -136,6 +143,7 @@ const Form2: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={conditionalData}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -150,6 +158,7 @@ const Form2: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={posSoftwareProviderData}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       {state.posSoftwareProvider === 'Personal' && (
@@ -165,6 +174,7 @@ const Form2: React.FC<FormType> = ({state, dispatch, preview}) => {
             data={conditionalData}
             search={false}
             preview={preview}
+            errorData={errorData}
           />
         </View>
       )}
@@ -183,6 +193,7 @@ const Form2: React.FC<FormType> = ({state, dispatch, preview}) => {
               defaultValue={state.thirdPartyName}
               preview={preview}
               type="alphanumericAndSymbol"
+              errorData={errorData}
             />
           </View>
           <View className="w-full mt-5 mb-3">
@@ -197,6 +208,7 @@ const Form2: React.FC<FormType> = ({state, dispatch, preview}) => {
               data={conditionalData}
               search={false}
               preview={preview}
+              errorData={errorData}
             />
           </View>
         </>

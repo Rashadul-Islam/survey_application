@@ -1,4 +1,4 @@
-import {View, StatusBar, Image} from 'react-native';
+import {View, Image} from 'react-native';
 import React, {useState} from 'react';
 import MenuDrawer from 'react-native-side-drawer';
 import {drawerStyles} from '../utils/drawerStyle';
@@ -6,22 +6,21 @@ import Sidebar from '../components/screenComponents/sidebar/Sidebar';
 import PressableComponent from '../components/ui/PressableComponent';
 import {Bars3Icon} from 'react-native-heroicons/solid';
 import TextComponent from '../components/ui/TextComponent';
+import {ScreenType} from '../components/types/screenComponentsType';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
-const Home = () => {
+const Home: React.FC<ScreenType> = ({setUser, user}) => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <View className="h-screen w-screen flex-1 bg-slate-200">
-      <StatusBar
-        translucent
-        backgroundColor={'transparent'}
-        barStyle={'dark-content'}
-      />
-      <View className="flex-1 mt-[65px]">
+    <SafeAreaView className="h-screen w-screen flex-1 bg-slate-200">
+      <View>
         <MenuDrawer
           open={open}
           position={'left'}
-          drawerContent={<Sidebar setOpen={setOpen} />}
+          drawerContent={
+            <Sidebar setOpen={setOpen} user={user} setUser={setUser} />
+          }
           drawerPercentage={70}
           animationTime={250}
           overlay={true}
@@ -39,13 +38,13 @@ const Home = () => {
               />
               <Image
                 source={require('../assets/homepage.png')}
-                className="w-[300px] h-[500px]"
+                className="h-[65%] w-full"
               />
             </View>
           </View>
         </MenuDrawer>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

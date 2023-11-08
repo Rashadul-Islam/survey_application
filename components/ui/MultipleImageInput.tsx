@@ -16,6 +16,7 @@ const MultipleImageInput: React.FC<MultiImageUploadType> = ({
   defaultImage,
   content,
   preview,
+  errorData,
 }) => {
   const options: ImageLibraryOptions = {
     mediaType: 'photo',
@@ -70,7 +71,13 @@ const MultipleImageInput: React.FC<MultiImageUploadType> = ({
 
   return (
     <View>
-      <TextComponent content={content} style="text-[18px] text-black mb-5" />
+      <TextComponent content={content} style="text-[18px] text-black mb-3" />
+      {errorData && !preview && !defaultImage.length && (
+        <TextComponent
+          content={'Required field *'}
+          style="text-red-900 text-[14px] mb-5"
+        />
+      )}
       {defaultImage &&
         defaultImage?.map((img, index) => (
           <View className="flex justify-center relative mb-5" key={index}>

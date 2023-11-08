@@ -16,6 +16,7 @@ const ImageInput: React.FC<ImageUploadType> = ({
   defaultImage,
   content,
   preview,
+  errorData,
 }) => {
   const options: ImageLibraryOptions = {
     mediaType: 'photo',
@@ -67,7 +68,13 @@ const ImageInput: React.FC<ImageUploadType> = ({
 
   return (
     <View>
-      <TextComponent content={content} style="text-[18px] text-black mb-5" />
+      <TextComponent content={content} style="text-[18px] text-black mb-3" />
+      {errorData && !preview && !defaultImage?.uri && (
+        <TextComponent
+          content={'Required field *'}
+          style="text-red-900 text-[14px] mb-5"
+        />
+      )}
       {defaultImage ? (
         <View className="flex justify-center relative">
           {!preview && (

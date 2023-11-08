@@ -11,7 +11,7 @@ import {
   stockKeepingData,
 } from '../../../sampleData/sampleDropdown';
 
-const Form4: React.FC<FormType> = ({state, dispatch, preview}) => {
+const Form4: React.FC<FormType> = ({preview, dispatch, state, errorData}) => {
   return (
     <View className="w-[85%] mx-auto">
       <View className="w-full mt-5 mb-3">
@@ -23,6 +23,7 @@ const Form4: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={stockKeepingData}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -34,6 +35,7 @@ const Form4: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={softwarePrinterData}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -45,6 +47,7 @@ const Form4: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={softwarePrinterData}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -56,6 +59,7 @@ const Form4: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={existanceData}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -67,6 +71,7 @@ const Form4: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={existanceData}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -78,6 +83,7 @@ const Form4: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={existanceData}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -89,6 +95,7 @@ const Form4: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={existanceData}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -103,6 +110,7 @@ const Form4: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={mobileOperatordata}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       {state.mobileOperator && (
@@ -118,6 +126,7 @@ const Form4: React.FC<FormType> = ({state, dispatch, preview}) => {
             data={OperatorCoveragedata}
             search={false}
             preview={preview}
+            errorData={errorData}
           />
         </View>
       )}

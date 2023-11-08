@@ -1,36 +1,70 @@
+import {exactBin, exactEmail, exactMobile} from '../sampleData/regexdata';
 import {ApplicationData} from './../states/state.interface';
 
-export const validation = (state: ApplicationData): boolean => {
+export const validation = (state: ApplicationData): string => {
+  if (state.binNumber && !exactBin.test(state.binNumber)) {
+    return 'binNumber';
+  }
+  if (
+    state.binHolderMobile &&
+    !exactMobile.test(String(state.binHolderMobile))
+  ) {
+    return 'binHolderMobile';
+  }
+  if (state.binHolderEmail !== '') {
+    if (!exactEmail.test(state.binHolderEmail)) {
+      return 'binHolderEmail';
+    }
+  }
+  if (state.differentBin !== '') {
+    if (!exactBin.test(state.differentBin)) {
+      return 'differentBin';
+    }
+  }
   if (state.posSoftwareProvider === 'Personal') {
     if (state.nrbApproved === '') {
-      return false;
+      return 'nrbApproved';
     }
   }
   if (state.posSoftwareProvider === 'Third Party') {
-    if (state.nrbApproved === '' || state.thirdPartyName === '') {
-      return false;
+    if (state.nrbApproved === '') {
+      return 'nrbApproved';
+    }
+    if (state.thirdPartyName === '') {
+      return 'thirdPartyName';
     }
   }
   if (state.onlineSaleAvailable === 'Yes') {
-    if (state.onlineSaleParcent === '' || state.onlineOrderMode === '') {
-      return false;
+    if (!state.onlineSaleParcent) {
+      return 'onlineSaleParcent';
+    }
+    if (state.onlineOrderMode === '') {
+      return 'onlineOrderMode';
     }
   }
   if (state.productInfo === 'Type') {
-    if (
-      state.productName === '' ||
-      state.productUnit === '' ||
-      state.unitPrice === '' ||
-      state.vatParcent === '' ||
-      state.sdPercent === '' ||
-      state.priceIncludingVat === '' ||
-      state.priceExcludingVat === ''
-    ) {
-      return false;
+    if (state.productName === '') {
+      return 'productName';
+    }
+    if (state.productUnit === '') {
+      return 'productUnit';
+    }
+    if (!state.unitPrice) {
+      return 'unitPrice';
+    }
+    if (!state.vatParcent) {
+      return 'vatParcent';
+    }
+    if (!state.priceIncludingVat) {
+      return 'priceIncludingVat';
+    }
+    if (!state.priceExcludingVat) {
+      return 'priceExcludingVat';
     }
   }
 
   const excludedFields = [
+    'brandName',
     'nrbApproved',
     'thirdPartyName',
     'onlineSaleParcent',
@@ -43,6 +77,8 @@ export const validation = (state: ApplicationData): boolean => {
     'priceIncludingVat',
     'priceExcludingVat',
     'differentBin',
+    'binHolderEmail',
+    'sdPercent',
   ];
 
   for (const prop in state) {
@@ -50,9 +86,19 @@ export const validation = (state: ApplicationData): boolean => {
       !excludedFields.includes(prop) &&
       state[prop as keyof ApplicationData] === ''
     ) {
-      return false;
+      return prop;
     }
   }
 
-  return true;
+  if (state.shopPic === null) {
+    return 'shopPic';
+  }
+  if (state.binCertificate === null) {
+    return 'binCertificate';
+  }
+  if (state.itemList.length === 0) {
+    return 'itemList';
+  }
+
+  return 'ok';
 };

@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import TextComponent from '../../ui/TextComponent';
 import InputComponent from '../../ui/InputComponent';
 import {FormType} from '../../types/screenComponentsType';
@@ -9,8 +10,31 @@ import {
   producUnit,
   productInfo,
 } from '../../../sampleData/sampleDropdown';
+import {
+  vatCalculationWithSd,
+  vatCalculationWithoutSd,
+} from '../../../utils/calculateVat';
 
-const Form3: React.FC<FormType> = ({state, dispatch, preview}) => {
+const Form3: React.FC<FormType> = ({preview, dispatch, state, errorData}) => {
+  useEffect(() => {
+    if (state.unitPrice && state.vatParcent) {
+      if (state.sdPercent) {
+        vatCalculationWithSd(
+          Number(state.unitPrice),
+          Number(state.vatParcent),
+          Number(state.sdPercent),
+          dispatch,
+        );
+      } else {
+        vatCalculationWithoutSd(
+          Number(state.unitPrice),
+          Number(state.vatParcent),
+          dispatch,
+        );
+      }
+    }
+  }, [state.unitPrice, state.vatParcent, state.sdPercent]);
+
   return (
     <View className="w-[85%] mx-auto">
       <View className="w-full mb-3 mt-5">
@@ -25,7 +49,8 @@ const Form3: React.FC<FormType> = ({state, dispatch, preview}) => {
           name="monthlyAverageSales"
           defaultValue={state.monthlyAverageSales}
           preview={preview}
-          type="numeric"
+          errorData={errorData}
+          keyboardType="number-pad"
         />
       </View>
       <View className="w-full mb-3 mt-5">
@@ -40,7 +65,8 @@ const Form3: React.FC<FormType> = ({state, dispatch, preview}) => {
           name="monthlyAverageCustomer"
           defaultValue={state.monthlyAverageCustomer}
           preview={preview}
-          type="numeric"
+          errorData={errorData}
+          keyboardType="number-pad"
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -55,6 +81,7 @@ const Form3: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={conditionalData}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       {state.onlineSaleAvailable === 'Yes' && (
@@ -66,12 +93,13 @@ const Form3: React.FC<FormType> = ({state, dispatch, preview}) => {
             />
             <InputComponent
               style="text-[18px] text-black border-b"
-              placeholder="12"
+              placeholder="Example: 12"
               handleChange={dispatch}
               name="onlineSaleParcent"
               defaultValue={state.onlineSaleParcent}
               preview={preview}
-              type="numeric"
+              errorData={errorData}
+              keyboardType="number-pad"
             />
           </View>
           <View className="w-full mb-3 mt-5">
@@ -87,6 +115,7 @@ const Form3: React.FC<FormType> = ({state, dispatch, preview}) => {
               defaultValue={state.onlineOrderMode}
               preview={preview}
               type="alphanumericAndSymbol"
+              errorData={errorData}
             />
           </View>
         </>
@@ -103,6 +132,7 @@ const Form3: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={productInfo}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       {state.productInfo === 'Type' && (
@@ -114,12 +144,13 @@ const Form3: React.FC<FormType> = ({state, dispatch, preview}) => {
             />
             <InputComponent
               style="text-[18px] text-black border-b"
-              placeholder="garments"
+              placeholder="Garments"
               handleChange={dispatch}
               name="productName"
               defaultValue={state.productName}
               preview={preview}
               type="alphanumericAndSymbol"
+              errorData={errorData}
             />
           </View>
           <View className="w-full mt-5 mb-3">
@@ -134,6 +165,7 @@ const Form3: React.FC<FormType> = ({state, dispatch, preview}) => {
               data={producUnit}
               search={false}
               preview={preview}
+              errorData={errorData}
             />
           </View>
           <View className="w-full mb-3 mt-5">
@@ -143,36 +175,51 @@ const Form3: React.FC<FormType> = ({state, dispatch, preview}) => {
             />
             <InputComponent
               style="text-[18px] text-black border-b"
-              placeholder="123"
+              placeholder="Example: 123"
               handleChange={dispatch}
               name="unitPrice"
               defaultValue={state.unitPrice}
               preview={preview}
-              type="numeric"
+              keyboardType="number-pad"
+              errorData={errorData}
             />
           </View>
           <View className="w-full mb-3 mt-5">
             <TextComponent style="text-[18px] text-black" content="VAT %" />
             <InputComponent
               style="text-[18px] text-black border-b"
-              placeholder="2"
+              placeholder="Example: 5"
               handleChange={dispatch}
               name="vatParcent"
               defaultValue={state.vatParcent}
               preview={preview}
-              type="numeric"
+              keyboardType="number-pad"
+              errorData={errorData}
             />
           </View>
-          <View className="w-full mb-3 mt-5">
-            <TextComponent style="text-[18px] text-black" content="SD %" />
+          <View className="w-full mb-3">
+            {preview && state.differentBin !== '' && (
+              <TextComponent
+                style="text-[18px] text-black mt-5"
+                content="SD %"
+              />
+            )}
+            {!preview && (
+              <TextComponent
+                style="text-[18px] text-black mt-5"
+                content="SD %"
+              />
+            )}
             <InputComponent
               style="text-[18px] text-black border-b"
-              placeholder="2"
+              placeholder="Example: 2"
               handleChange={dispatch}
               name="sdPercent"
               defaultValue={state.sdPercent}
               preview={preview}
-              type="numeric"
+              keyboardType="number-pad"
+              errorData={errorData}
+              optional={true}
             />
           </View>
           <View className="w-full mb-3 mt-5">
@@ -180,13 +227,9 @@ const Form3: React.FC<FormType> = ({state, dispatch, preview}) => {
               style="text-[18px] text-black"
               content="Price including VAT"
             />
-            <InputComponent
-              style="text-[18px] text-black border-b"
-              placeholder="2"
-              handleChange={dispatch}
-              name="priceIncludingVat"
-              defaultValue={state.priceIncludingVat}
-              preview={preview}
+            <TextComponent
+              style="text-[18px] text-black mt-4 border-b pb-3"
+              content={Number(state.priceIncludingVat)}
             />
           </View>
           <View className="w-full mb-3 mt-5">
@@ -194,14 +237,9 @@ const Form3: React.FC<FormType> = ({state, dispatch, preview}) => {
               style="text-[18px] text-black"
               content="Price excluding VAT"
             />
-            <InputComponent
-              style="text-[18px] text-black border-b"
-              placeholder="2"
-              handleChange={dispatch}
-              name="priceExcludingVat"
-              defaultValue={state.priceExcludingVat}
-              preview={preview}
-              type="numeric"
+            <TextComponent
+              style="text-[18px] text-black mt-4 border-b pb-3"
+              content={Number(state.priceExcludingVat)}
             />
           </View>
         </>

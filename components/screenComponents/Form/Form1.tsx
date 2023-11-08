@@ -8,7 +8,7 @@ import {FormType} from '../../types/screenComponentsType';
 import {commisionerate} from '../../../sampleData/commissionerate';
 import {circle, subdivision} from '../../../sampleData/divisionCircle';
 
-const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
+const Form1: React.FC<FormType> = ({preview, dispatch, state, errorData}) => {
   return (
     <View className="w-[85%] mx-auto">
       <View className="w-full h-[70px] mt-5">
@@ -30,12 +30,13 @@ const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
         />
         <InputComponent
           style="text-[18px] text-black border-b"
-          placeholder="123456"
+          placeholder="1234XXXXX-XXXX"
           handleChange={dispatch}
           name="binNumber"
           defaultValue={state.binNumber}
           preview={preview}
-          type="numericSymbol"
+          type="binRegex"
+          errorData={errorData}
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -50,6 +51,7 @@ const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={commisionerate}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       <View className="w-full mt-5 mb-3">
@@ -64,6 +66,7 @@ const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
           data={commisionerate}
           search={false}
           preview={preview}
+          errorData={errorData}
         />
       </View>
       {state.division && (
@@ -79,6 +82,7 @@ const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
             data={subdivision[state?.division]}
             search={true}
             preview={preview}
+            errorData={errorData}
           />
         </View>
       )}
@@ -93,8 +97,9 @@ const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
             name="circle"
             handleSelect={dispatch}
             data={circle[state.subDivision]}
-            search={false}
             preview={preview}
+            search={false}
+            errorData={errorData}
           />
         </View>
       )}
@@ -110,14 +115,22 @@ const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
           name="shopName"
           defaultValue={state.shopName}
           preview={preview}
-          type="alphanumericAndSymbol"
+          errorData={errorData}
         />
       </View>
-      <View className="w-full mb-3 mt-5">
-        <TextComponent
-          style="text-[18px] text-black"
-          content="Enter brand name (optional)"
-        />
+      <View className="w-full mb-3">
+        {preview && state.brandName !== '' && (
+          <TextComponent
+            style="text-[18px] text-black mt-5"
+            content="Enter brand name (optional)"
+          />
+        )}
+        {!preview && (
+          <TextComponent
+            style="text-[18px] text-black mt-5"
+            content="Enter brand name (optional)"
+          />
+        )}
         <InputComponent
           style="text-[18px] text-black border-b"
           placeholder="Easy"
@@ -125,7 +138,8 @@ const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
           name="brandName"
           defaultValue={state.brandName}
           preview={preview}
-          type="alphanumericAndSymbol"
+          errorData={errorData}
+          optional={true}
         />
       </View>
       <View className="w-full mb-3 mt-5">
@@ -140,7 +154,7 @@ const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
           name="areaOrshoppingMall"
           defaultValue={state.areaOrshoppingMall}
           preview={preview}
-          type="alphanumericAndSymbol"
+          errorData={errorData}
         />
       </View>
       <View className="w-full mb-3 mt-5">
@@ -155,7 +169,7 @@ const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
           name="businessRegisteredAddress"
           defaultValue={state.businessRegisteredAddress}
           preview={preview}
-          type="alphanumericAndSymbol"
+          errorData={errorData}
         />
       </View>
       <View className="w-full mb-3 mt-5">
@@ -170,7 +184,7 @@ const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
           name="outletAddress"
           defaultValue={state.outletAddress}
           preview={preview}
-          type="alphanumericAndSymbol"
+          errorData={errorData}
         />
       </View>
       <View className="w-full mb-3 mt-5">
@@ -182,10 +196,11 @@ const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
           style="text-[18px] text-black border-b"
           placeholder="12345436"
           handleChange={dispatch}
-          name="nid"
-          defaultValue={state.nid}
+          name="binHolderNid"
+          defaultValue={state.binHolderNid}
           preview={preview}
-          type="numeric"
+          keyboardType="number-pad"
+          errorData={errorData}
         />
       </View>
       <View className="w-full mb-3 mt-5">
@@ -197,10 +212,11 @@ const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
           style="text-[18px] text-black border-b"
           placeholder="Rashadul Islam"
           handleChange={dispatch}
-          name="name"
-          defaultValue={state.name}
+          name="binHolderName"
+          defaultValue={state.binHolderName}
           preview={preview}
           type="alphanumericAndSymbol"
+          errorData={errorData}
         />
       </View>
       <View className="w-full mb-3 mt-5">
@@ -212,25 +228,37 @@ const Form1: React.FC<FormType> = ({state, dispatch, preview}) => {
           style="text-[18px] text-black border-b"
           placeholder="0178XXXXXXX"
           handleChange={dispatch}
-          name="mobile"
-          defaultValue={state.mobile}
+          name="binHolderMobile"
+          defaultValue={state.binHolderMobile}
           preview={preview}
-          type="numeric"
+          type="mobile"
+          keyboardType="number-pad"
+          errorData={errorData}
         />
       </View>
-      <View className="w-full mb-3 mt-5">
-        <TextComponent
-          style="text-[18px] text-black"
-          content="BIN holder's email (optional)"
-        />
+      <View className="w-full mb-3">
+        {preview && state.binHolderEmail !== '' && (
+          <TextComponent
+            style="text-[18px] text-black mt-5"
+            content="BIN holder's email (optional)"
+          />
+        )}
+        {!preview && (
+          <TextComponent
+            style="text-[18px] text-black mt-5"
+            content="BIN holder's email (optional)"
+          />
+        )}
         <InputComponent
           style="text-[18px] text-black border-b"
           placeholder="example@gmail.com"
           handleChange={dispatch}
-          name="email"
-          defaultValue={state.email}
+          name="binHolderEmail"
+          defaultValue={state.binHolderEmail}
+          type="email"
           preview={preview}
-          type="alphanumericAndSymbol"
+          errorData={errorData}
+          optional={true}
         />
       </View>
     </View>

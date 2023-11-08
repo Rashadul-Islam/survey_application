@@ -2,6 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import TextComponent from './TextComponent';
+import {View} from 'react-native';
 
 type IDProps = {
   defaultValue: string;
@@ -13,6 +14,7 @@ type IDProps = {
   data: {label: string; value: string}[];
   search: boolean;
   preview: boolean;
+  errorData: string;
 };
 
 const DropdownComponents: React.FC<IDProps> = ({
@@ -22,6 +24,7 @@ const DropdownComponents: React.FC<IDProps> = ({
   data,
   search,
   preview,
+  errorData,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
@@ -46,36 +49,44 @@ const DropdownComponents: React.FC<IDProps> = ({
           content={defaultValue}
         />
       ) : (
-        <DropDownPicker
-          style={{
-            backgroundColor: 'rgb(226 232 240)',
-            borderRadius: 0,
-            borderWidth: 0,
-            borderBottomWidth: 1.2,
-            zIndex: 0,
-          }}
-          textStyle={{
-            fontFamily: 'InriaSerif-Regular',
-            fontSize: 18,
-          }}
-          open={open}
-          value={defaultValue}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
-          maxHeight={300}
-          searchable={search}
-          listMode="SCROLLVIEW"
-          scrollViewProps={{
-            nestedScrollEnabled: true,
-          }}
-          listItemContainerStyle={{
-            height: 'auto',
-            marginTop: 8,
-            marginBottom: 8,
-          }}
-        />
+        <View>
+          {errorData && !preview && defaultValue === '' && (
+            <TextComponent
+              content={'Required field *'}
+              style="text-red-900 text-[14px] mt-2"
+            />
+          )}
+          <DropDownPicker
+            style={{
+              backgroundColor: 'rgb(226 232 240)',
+              borderRadius: 0,
+              borderWidth: 0,
+              borderBottomWidth: 1.2,
+              zIndex: 0,
+            }}
+            textStyle={{
+              fontFamily: 'InriaSerif-Regular',
+              fontSize: 18,
+            }}
+            open={open}
+            value={defaultValue}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            maxHeight={300}
+            searchable={search}
+            listMode="SCROLLVIEW"
+            scrollViewProps={{
+              nestedScrollEnabled: true,
+            }}
+            listItemContainerStyle={{
+              height: 'auto',
+              marginTop: 8,
+              marginBottom: 8,
+            }}
+          />
+        </View>
       )}
     </>
   );
