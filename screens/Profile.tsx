@@ -22,7 +22,7 @@ const Profile: React.FC<ScreenType> = ({setUser, user}) => {
   const [profileInfo, setProfileInfo] = useState<UserResponse | null>();
   const [profileImage, setProfileImage] = useState<any>(null);
   const [showImagePicker, setShowImagePicker] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const toast = useToast();
 
   useEffect(() => {
@@ -36,9 +36,11 @@ const Profile: React.FC<ScreenType> = ({setUser, user}) => {
         });
         if (data) {
           setProfileInfo(data.data);
+          setLoading(false);
         }
       } catch (err) {
         console.log(err);
+        setLoading(false);
       }
     };
     getProfile();
@@ -115,114 +117,129 @@ const Profile: React.FC<ScreenType> = ({setUser, user}) => {
                 icon={<Bars3Icon size={25} color="black" />}
               />
             </View>
-            <View className="h-screen flex flex-col items-center justify-center">
-              <Image
-                source={
-                  profileInfo?.avatar
-                    ? {uri: `${IMGAPI + profileInfo?.avatar}`}
-                    : require('../assets/profile.png')
-                }
-                className="w-[200px] h-[200px] rounded-full"
-              />
-              {!showImagePicker && (
-                <TouchableOpacityComponent
-                  style="mt-5 mb-5 bg-gray-500 px-5 py-2 rounded-md"
-                  innerStyle="text-[18px] text-white"
-                  content={'Change profile picture'}
-                  handlePress={() => setShowImagePicker(!showImagePicker)}
-                />
-              )}
-              {showImagePicker && (
-                <ImageInputWithoutReducer handleImagehange={setProfileImage} />
-              )}
+            {profileInfo ? (
+              <>
+                <View className="h-screen flex flex-col items-center justify-center">
+                  <Image
+                    source={
+                      profileInfo?.avatar
+                        ? {uri: `${IMGAPI + profileInfo?.avatar}`}
+                        : require('../assets/profile.png')
+                    }
+                    className="w-[200px] h-[200px] rounded-full"
+                  />
+                  {!showImagePicker && (
+                    <TouchableOpacityComponent
+                      style="mt-5 mb-5 bg-gray-500 px-5 py-2 rounded-md"
+                      innerStyle="text-[18px] text-white"
+                      content={'Change profile picture'}
+                      handlePress={() => setShowImagePicker(!showImagePicker)}
+                    />
+                  )}
+                  {showImagePicker && (
+                    <ImageInputWithoutReducer
+                      handleImagehange={setProfileImage}
+                    />
+                  )}
 
-              <View className="border w-[95%] mx-auto mt-[5%]">
-                <View className="flex flex-row">
-                  <View className="p-2 border w-[30%]">
-                    <TextComponent
-                      style="text-[16px] text-black text-center"
-                      content={'Name'}
-                    />
-                  </View>
-                  <View className="p-2 border w-[70%]">
-                    <TextComponent
-                      style="text-[16px] text-black text-center"
-                      content={profileInfo?.name}
-                    />
+                  <View className="border w-[95%] mx-auto mt-[5%]">
+                    <View className="flex flex-row">
+                      <View className="p-2 border w-[30%]">
+                        <TextComponent
+                          style="text-[16px] text-black text-center"
+                          content={'Name'}
+                        />
+                      </View>
+                      <View className="p-2 border w-[70%]">
+                        <TextComponent
+                          style="text-[16px] text-black text-center"
+                          content={profileInfo?.name}
+                        />
+                      </View>
+                    </View>
+                    <View className="flex flex-row">
+                      <View className="p-2 border w-[30%]">
+                        <TextComponent
+                          style="text-[16px] text-black text-center"
+                          content={'Gender'}
+                        />
+                      </View>
+                      <View className="p-2 border w-[70%]">
+                        <TextComponent
+                          style="text-[16px] text-black text-center"
+                          content={profileInfo?.gender}
+                        />
+                      </View>
+                    </View>
+                    <View className="flex flex-row">
+                      <View className="p-2 border w-[30%]">
+                        <TextComponent
+                          style="text-[16px] text-black text-center"
+                          content={'Email'}
+                        />
+                      </View>
+                      <View className="p-2 border w-[70%]">
+                        <TextComponent
+                          style="text-[16px] text-black text-center"
+                          content={profileInfo?.email}
+                        />
+                      </View>
+                    </View>
+                    <View className="flex flex-row">
+                      <View className="p-2 border w-[30%]">
+                        <TextComponent
+                          style="text-[16px] text-black text-center"
+                          content={'Phone'}
+                        />
+                      </View>
+                      <View className="p-2 border w-[70%]">
+                        <TextComponent
+                          style="text-[16px] text-black text-center"
+                          content={profileInfo?.phone}
+                        />
+                      </View>
+                    </View>
+                    <View className="flex flex-row">
+                      <View className="p-2 border w-[30%]">
+                        <TextComponent
+                          style="text-[16px] text-black text-center"
+                          content={'Join date'}
+                        />
+                      </View>
+                      <View className="p-2 border w-[70%]">
+                        <TextComponent
+                          style="text-[16px] text-black text-center"
+                          content={profileInfo?.date_of_joining}
+                        />
+                      </View>
+                    </View>
+                    <View className="flex flex-row">
+                      <View className="p-2 border w-[30%]">
+                        <TextComponent
+                          style="text-[16px] text-black text-center"
+                          content={'Role'}
+                        />
+                      </View>
+                      <View className="p-2 border w-[70%]">
+                        <TextComponent
+                          style="text-[16px] text-black text-center"
+                          content={profileInfo?.role?.name}
+                        />
+                      </View>
+                    </View>
                   </View>
                 </View>
-                <View className="flex flex-row">
-                  <View className="p-2 border w-[30%]">
-                    <TextComponent
-                      style="text-[16px] text-black text-center"
-                      content={'Gender'}
-                    />
-                  </View>
-                  <View className="p-2 border w-[70%]">
-                    <TextComponent
-                      style="text-[16px] text-black text-center"
-                      content={profileInfo?.gender}
-                    />
-                  </View>
+              </>
+            ) : (
+              !loading && (
+                <View className="flex h-screen w-screen justify-center items-center">
+                  <TextComponent
+                    style="text-black text-[18px]"
+                    content={'Something went wrong...'}
+                  />
                 </View>
-                <View className="flex flex-row">
-                  <View className="p-2 border w-[30%]">
-                    <TextComponent
-                      style="text-[16px] text-black text-center"
-                      content={'Email'}
-                    />
-                  </View>
-                  <View className="p-2 border w-[70%]">
-                    <TextComponent
-                      style="text-[16px] text-black text-center"
-                      content={profileInfo?.email}
-                    />
-                  </View>
-                </View>
-                <View className="flex flex-row">
-                  <View className="p-2 border w-[30%]">
-                    <TextComponent
-                      style="text-[16px] text-black text-center"
-                      content={'Phone'}
-                    />
-                  </View>
-                  <View className="p-2 border w-[70%]">
-                    <TextComponent
-                      style="text-[16px] text-black text-center"
-                      content={profileInfo?.phone}
-                    />
-                  </View>
-                </View>
-                <View className="flex flex-row">
-                  <View className="p-2 border w-[30%]">
-                    <TextComponent
-                      style="text-[16px] text-black text-center"
-                      content={'Join date'}
-                    />
-                  </View>
-                  <View className="p-2 border w-[70%]">
-                    <TextComponent
-                      style="text-[16px] text-black text-center"
-                      content={profileInfo?.date_of_joining}
-                    />
-                  </View>
-                </View>
-                <View className="flex flex-row">
-                  <View className="p-2 border w-[30%]">
-                    <TextComponent
-                      style="text-[16px] text-black text-center"
-                      content={'Role'}
-                    />
-                  </View>
-                  <View className="p-2 border w-[70%]">
-                    <TextComponent
-                      style="text-[16px] text-black text-center"
-                      content={profileInfo?.role?.name}
-                    />
-                  </View>
-                </View>
-              </View>
-            </View>
+              )
+            )}
           </View>
         </MenuDrawer>
       </View>

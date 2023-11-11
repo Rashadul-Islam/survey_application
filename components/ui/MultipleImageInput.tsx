@@ -75,7 +75,7 @@ const MultipleImageInput: React.FC<MultiImageUploadType> = ({
       {errorData && !preview && !defaultImage.length && (
         <TextComponent
           content={'Required field *'}
-          style="text-red-900 text-[14px] mb-5"
+          style="text-red-500 text-[14px] mb-5"
         />
       )}
       {defaultImage &&

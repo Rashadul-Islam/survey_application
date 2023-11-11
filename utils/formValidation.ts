@@ -2,13 +2,10 @@ import {exactBin, exactEmail, exactMobile} from '../sampleData/regexdata';
 import {ApplicationData} from './../states/state.interface';
 
 export const validation = (state: ApplicationData): string => {
-  if (state.binNumber && !exactBin.test(state.binNumber)) {
+  if (!exactBin.test(state.binNumber)) {
     return 'binNumber';
   }
-  if (
-    state.binHolderMobile &&
-    !exactMobile.test(String(state.binHolderMobile))
-  ) {
+  if (!exactMobile.test(String(state.binHolderMobile))) {
     return 'binHolderMobile';
   }
   if (state.binHolderEmail !== '') {

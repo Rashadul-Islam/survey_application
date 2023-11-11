@@ -45,7 +45,7 @@ const DropdownComponents: React.FC<IDProps> = ({
     <>
       {preview ? (
         <TextComponent
-          style="text-black text-[18px] mt-3 border-b pb-2"
+          style="text-[18px] text-black mt-3 border-b pb-2"
           content={defaultValue}
         />
       ) : (
@@ -53,7 +53,7 @@ const DropdownComponents: React.FC<IDProps> = ({
           {errorData && !preview && defaultValue === '' && (
             <TextComponent
               content={'Required field *'}
-              style="text-red-900 text-[14px] mt-2"
+              style="text-red-500 text-[14px] mt-2"
             />
           )}
           <DropDownPicker
@@ -67,6 +67,7 @@ const DropdownComponents: React.FC<IDProps> = ({
             textStyle={{
               fontFamily: 'InriaSerif-Regular',
               fontSize: 18,
+              color: 'black',
             }}
             open={open}
             value={defaultValue}

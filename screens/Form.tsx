@@ -1,4 +1,4 @@
-import {Image, View} from 'react-native';
+import {Alert, Image, View} from 'react-native';
 import React, {useReducer, useState} from 'react';
 import TextComponent from '../components/ui/TextComponent';
 import {initialState} from '../states/initialState';
@@ -38,13 +38,29 @@ const Form: React.FC<ScreenType> = ({setUser, user}) => {
   const handleSubmit = () => {
     const check = validation(state);
     if (check !== 'ok') {
-      setErrorData(check);
+      Alert.alert(
+        'Validation failed!',
+        'Please enter the required data field',
+        [{text: 'OK', onPress: () => setErrorData(check)}],
+        {cancelable: false},
+      );
     } else {
-      setPreview(true);
+      Alert.alert(
+        'Validation success!',
+        'Do you want to preview the data',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: () => setPreview(true)},
+        ],
+        {cancelable: false},
+      );
     }
   };
 
-  const finalSubmit = async () => {
+  const submitToDB = async () => {
     setLoading(true);
     try {
       const formData = createFormData(state);
@@ -67,6 +83,21 @@ const Form: React.FC<ScreenType> = ({setUser, user}) => {
         type: 'custom_error',
       });
     }
+  };
+
+  const finalSubmit = () => {
+    Alert.alert(
+      'Final submission',
+      'Do you want to submit the data',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => submitToDB()},
+      ],
+      {cancelable: false},
+    );
   };
 
   return (
@@ -100,7 +131,7 @@ const Form: React.FC<ScreenType> = ({setUser, user}) => {
                 handlePress={() => setOpen(true)}
               />
               <TextComponent
-                content="Check the form carefully"
+                content="Data previewing"
                 style="text-[22px] text-center text-black font-semi-bold"
               />
               <PressableComponent
