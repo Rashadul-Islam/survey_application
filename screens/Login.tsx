@@ -111,7 +111,7 @@ const Login: React.FC<ScreenType> = ({setUser}) => {
   return (
     <View className="flex-1 relative">
       <View
-        className="bg-[#D9D9D9] w-[200px] h-[200px] absolute -top-7 -left-10 shadow-md rounded-full z-10"
+        className="bg-[#D9D9D9] w-[200px] h-[200px] absolute -top-[2.5%] -left-[10%] shadow-md rounded-full z-10"
         style={{
           shadowColor: '#000',
         }}
@@ -120,13 +120,13 @@ const Login: React.FC<ScreenType> = ({setUser}) => {
         style={{
           shadowColor: '#000',
         }}
-        className="bg-[#146C94] shadow-lg w-[220px] h-[150px] absolute -top-8 -left-2 rounded-full rotate-6 z-20"
+        className="bg-[#146C94] shadow-lg w-[220px] h-[150px] absolute -top-[3.7%] -left-[1.8%] rounded-full rotate-6 z-20"
       />
       <View
         style={{
           shadowColor: '#000',
         }}
-        className="bg-[#D9D9D9] shadow-lg w-[370px] h-[180px] absolute -top-12 left-12 rounded-full rotate-6 z-30"
+        className="bg-[#D9D9D9] shadow-lg w-[370px] h-[180px] absolute -top-[5.8%] left-[13%] rounded-full rotate-6 z-30"
       />
       <TextComponent
         style="text-[#000000] text-center top-11 font-semibold text-[50px] z-40"
@@ -137,12 +137,12 @@ const Login: React.FC<ScreenType> = ({setUser}) => {
           style={{
             shadowColor: '#000',
           }}
-          className="w-full min-h-screen absolute top-[40%] bg-[#D9D9D9] shadow-md rounded-[50px]">
+          className="w-full h-[55%] absolute bottom-0 bg-[#D9D9D9] shadow-md rounded-t-[50px]">
           <Image
             source={require('../assets/loginpage.png')}
             className="w-[200px] h-[200px] -top-[145px] mx-auto z-0"
           />
-          <View className="w-[85%] mx-auto -top-[12%]">
+          <View className="w-[85%] mx-auto -top-[25%]">
             <TextComponent
               style="text-red text-[16px]"
               content={validationError.email}
@@ -176,20 +176,6 @@ const Login: React.FC<ScreenType> = ({setUser}) => {
                 }
               />
             </View>
-            {/* <View className="flex flex-row justify-between mt-10">
-              <View className="flex h-[25px] flex-row items-center relative -left-1.5">
-                <CheckBox value={selected} onValueChange={setSelected} />
-                <TextComponent content="Remember me" style="text-[18px]" />
-              </View>
-              <PressableComponent
-                handlePress={() => {
-                  console.log('forgot');
-                }}
-                style="h-[25px] flex items-center"
-                content="Forgot Password?"
-                innerStyle="text-[18px] text-[#202660]"
-              />
-            </View> */}
             <TouchableOpacityComponent
               handlePress={handleLogin}
               style="bg-[#146C94] h-[50px] flex flex-row justify-center items-center rounded-full mt-10"
