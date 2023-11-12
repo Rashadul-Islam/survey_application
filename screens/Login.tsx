@@ -111,7 +111,7 @@ const Login: React.FC<ScreenType> = ({setUser}) => {
   return (
     <View className="flex-1 relative">
       <View
-        className="bg-[#D9D9D9] w-[200px] h-[200px] absolute -top-[2.5%] -left-[10%] shadow-md rounded-full z-10"
+        className="bg-[#D9D9D9] w-[200px] h-[200px] absolute -top-7 -left-10 shadow-md rounded-full z-10"
         style={{
           shadowColor: '#000',
         }}
@@ -120,31 +120,31 @@ const Login: React.FC<ScreenType> = ({setUser}) => {
         style={{
           shadowColor: '#000',
         }}
-        className="bg-[#146C94] shadow-lg w-[220px] h-[150px] absolute -top-[3.7%] -left-[1.8%] rounded-full rotate-6 z-20"
+        className="bg-[#146C94] shadow-lg w-[220px] h-[150px] absolute -top-8 -left-2 rounded-full rotate-6 z-20"
       />
       <View
         style={{
           shadowColor: '#000',
         }}
-        className="bg-[#D9D9D9] shadow-lg w-[370px] h-[180px] absolute -top-[5.8%] left-[13%] rounded-full rotate-6 z-30"
+        className="bg-[#D9D9D9] shadow-lg w-[370px] h-[180px] absolute -top-12 left-12 rounded-full rotate-6 z-30"
       />
       <TextComponent
         style="text-[#000000] text-center top-11 font-semibold text-[50px] z-40"
         content="Login"
       />
-      <KeyboardAvoidingView behavior="padding" className="flex-1 relative">
+      <KeyboardAvoidingView className="flex-1 relative">
         <View
           style={{
             shadowColor: '#000',
           }}
-          className="w-full h-[55%] absolute bottom-0 bg-[#D9D9D9] shadow-md rounded-t-[50px]">
+          className="w-full h-[400px] absolute bottom-0 bg-[#D9D9D9] shadow-md rounded-t-[50px]">
           <Image
             source={require('../assets/loginpage.png')}
             className="w-[200px] h-[200px] -top-[145px] mx-auto z-0"
           />
           <View className="w-[85%] mx-auto -top-[25%]">
             <TextComponent
-              style="text-red text-[16px]"
+              style="text-red-500 text-[16px]"
               content={validationError.email}
             />
             <InputComponent
@@ -153,7 +153,7 @@ const Login: React.FC<ScreenType> = ({setUser}) => {
               handleInputChange={setEmail}
             />
             <TextComponent
-              style="text-red text-[16px] mt-5"
+              style="text-red-500 text-[16px] mt-5"
               content={validationError.password}
             />
             <View className="relative">
