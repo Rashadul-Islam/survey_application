@@ -71,6 +71,7 @@ const Form: React.FC<ScreenType> = ({setUser, user}) => {
         },
       });
       if (data) {
+        console.log(data);
         setLoading(false);
         toast.show('Entry recorded!', {
           type: 'custom_success',
@@ -79,7 +80,7 @@ const Form: React.FC<ScreenType> = ({setUser, user}) => {
       }
     } catch (err) {
       setLoading(false);
-      toast.show('Something went wrong...', {
+      toast.show(`${err}`, {
         type: 'custom_error',
       });
     }
