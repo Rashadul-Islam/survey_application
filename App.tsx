@@ -78,23 +78,23 @@ export default function App() {
           barStyle={'dark-content'}
         />
         <Stack.Navigator>
-          {/* {user ? (
+          {user ? (
             <>
               <Stack.Screen name="home" options={{headerShown: false}}>
                 {props => <Home {...props} user={user} setUser={setUser} />}
-              </Stack.Screen> */}
+              </Stack.Screen>
               <Stack.Screen name="form" options={{headerShown: false}}>
                 {props => <Form {...props} user={user} setUser={setUser} />}
               </Stack.Screen>
               <Stack.Screen name="profile" options={{headerShown: false}}>
                 {props => <Profile {...props} user={user} setUser={setUser} />}
               </Stack.Screen>
-            {/* </>
+            </>
           ) : (
             <Stack.Screen name="login" options={{headerShown: false}}>
               {props => <Login {...props} setUser={setUser} />}
             </Stack.Screen>
-          )} */}
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     </ToastProvider>
