@@ -132,17 +132,17 @@ const Login: React.FC<ScreenType> = ({setUser}) => {
         style="text-[#000000] text-center top-11 font-semibold text-[50px] z-40"
         content="Login"
       />
-      <KeyboardAvoidingView className="flex-1 relative">
+      <KeyboardAvoidingView behavior="padding" className="flex-1 relative">
         <View
           style={{
             shadowColor: '#000',
           }}
-          className="w-full h-[400px] absolute bottom-0 bg-[#D9D9D9] shadow-md rounded-t-[50px]">
+          className="w-full absolute bottom-0 bg-[#D9D9D9] shadow-md rounded-t-[50px]">
           <Image
             source={require('../assets/loginpage.png')}
             className="w-[200px] h-[200px] -top-[145px] mx-auto z-0"
           />
-          <View className="w-[85%] mx-auto -top-[25%]">
+          <View className="w-[85%] mx-auto -top-[15%]">
             <TextComponent
               style="text-red-500 text-[16px]"
               content={validationError.email}

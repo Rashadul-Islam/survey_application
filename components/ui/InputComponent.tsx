@@ -150,7 +150,7 @@ const InputComponent: React.FC<InputTextProp> = ({
           <TextInput
             style={{fontFamily: 'InriaSerif-Regular'}}
             placeholder={placeholder}
-            placeholderTextColor="black"
+            placeholderTextColor="gray"
             className={style}
             secureTextEntry={secure}
             keyboardType={keyboardType === undefined ? 'default' : 'number-pad'}

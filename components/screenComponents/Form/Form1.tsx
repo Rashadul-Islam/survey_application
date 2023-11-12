@@ -110,7 +110,7 @@ const Form1: React.FC<FormType> = ({preview, dispatch, state, errorData}) => {
         />
         <InputComponent
           style="text-[18px] text-black border-b"
-          placeholder="Easy Fashion"
+          placeholder="Shop name"
           handleChange={dispatch}
           name="shopName"
           defaultValue={state.shopName}
@@ -133,7 +133,7 @@ const Form1: React.FC<FormType> = ({preview, dispatch, state, errorData}) => {
         )}
         <InputComponent
           style="text-[18px] text-black border-b"
-          placeholder="Easy"
+          placeholder="Brand name"
           handleChange={dispatch}
           name="brandName"
           defaultValue={state.brandName}
@@ -210,7 +210,7 @@ const Form1: React.FC<FormType> = ({preview, dispatch, state, errorData}) => {
         />
         <InputComponent
           style="text-[18px] text-black border-b"
-          placeholder="Rashadul Islam"
+          placeholder="Example: Mr. xxx"
           handleChange={dispatch}
           name="binHolderName"
           defaultValue={state.binHolderName}
@@ -226,7 +226,7 @@ const Form1: React.FC<FormType> = ({preview, dispatch, state, errorData}) => {
         />
         <InputComponent
           style="text-[18px] text-black border-b"
-          placeholder="0178XXXXXXX"
+          placeholder="01XXXXXXXXX"
           handleChange={dispatch}
           name="binHolderMobile"
           defaultValue={state.binHolderMobile}

@@ -1,5 +1,5 @@
-import {Alert, Image, View} from 'react-native';
-import React, {useReducer, useState} from 'react';
+import {Alert, Image, ScrollView, View} from 'react-native';
+import React, {useReducer, useRef, useState} from 'react';
 import TextComponent from '../components/ui/TextComponent';
 import {initialState} from '../states/initialState';
 import {reducer} from '../states/formReducer';
@@ -14,7 +14,6 @@ import {validation} from '../utils/formValidation';
 import MenuDrawer from 'react-native-side-drawer';
 import Sidebar from '../components/screenComponents/sidebar/Sidebar';
 import {drawerStyles} from '../utils/drawerStyle';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {ScreenType} from '../components/types/screenComponentsType';
 import {API} from '../utils/endpoint';
 import axios from 'axios';
@@ -31,6 +30,7 @@ const Form: React.FC<ScreenType> = ({setUser, user}) => {
   const [open, setOpen] = useState<boolean>(false);
   const [errorData, setErrorData] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const scrollRef = useRef(null);
 
   const toast = useToast();
   const navigation = useNavigation<NavigationType>();
@@ -41,7 +41,15 @@ const Form: React.FC<ScreenType> = ({setUser, user}) => {
       Alert.alert(
         'Validation failed!',
         'Please enter the required data field',
-        [{text: 'OK', onPress: () => setErrorData(check)}],
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              setErrorData(check);
+              scrollRef?.current?.scrollTo({y: 0, animated: true});
+            },
+          },
+        ],
         {cancelable: false},
       );
     } else {
@@ -53,7 +61,13 @@ const Form: React.FC<ScreenType> = ({setUser, user}) => {
             text: 'Cancel',
             style: 'cancel',
           },
-          {text: 'OK', onPress: () => setPreview(true)},
+          {
+            text: 'OK',
+            onPress: () => {
+              setPreview(true);
+              scrollRef?.current?.scrollTo({y: 0, animated: true});
+            },
+          },
         ],
         {cancelable: false},
       );
@@ -152,7 +166,7 @@ const Form: React.FC<ScreenType> = ({setUser, user}) => {
               />
             </View>
           )}
-          <KeyboardAwareScrollView>
+          <ScrollView ref={scrollRef}>
             <Form1
               state={state}
               dispatch={dispatch}
@@ -193,7 +207,7 @@ const Form: React.FC<ScreenType> = ({setUser, user}) => {
                 innerStyle="text-center text-[18px] text-white font-bold"
               />
             </View>
-          </KeyboardAwareScrollView>
+          </ScrollView>
         </MenuDrawer>
       </View>
     </SafeAreaView>

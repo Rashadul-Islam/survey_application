@@ -67,7 +67,7 @@ const DropdownComponents: React.FC<IDProps> = ({
             textStyle={{
               fontFamily: 'InriaSerif-Regular',
               fontSize: 18,
-              color: 'black',
+              color: open ? 'black' : 'gray',
             }}
             open={open}
             value={defaultValue}
