@@ -1,4 +1,4 @@
-import {Image, KeyboardAvoidingView, View} from 'react-native';
+import {Image, KeyboardAvoidingView, StatusBar, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   ArrowRightOnRectangleIcon,
@@ -15,6 +15,7 @@ import axios from 'axios';
 import {storeData} from '../utils/asyncStorage';
 import {ScreenType} from '../components/types/screenComponentsType';
 import {useToast} from 'react-native-toast-notifications';
+import Animated, {FadeInUp} from 'react-native-reanimated';
 
 const Login: React.FC<ScreenType> = ({setUser}) => {
   const [showPassword, setShowPassword] = useState<boolean>(true);
@@ -109,27 +110,22 @@ const Login: React.FC<ScreenType> = ({setUser}) => {
   }, [email, password]);
 
   return (
-    <View className="flex-1 relative">
-      <View
-        className="bg-[#D9D9D9] w-[200px] h-[200px] absolute -top-7 -left-10 shadow-md rounded-full z-10"
-        style={{
-          shadowColor: '#000',
-        }}
-      />
-      <View
-        style={{
-          shadowColor: '#000',
-        }}
-        className="bg-[#146C94] shadow-lg w-[220px] h-[150px] absolute -top-8 -left-2 rounded-full rotate-6 z-20"
-      />
-      <View
-        style={{
-          shadowColor: '#000',
-        }}
-        className="bg-[#D9D9D9] shadow-lg w-[370px] h-[180px] absolute -top-12 left-12 rounded-full rotate-6 z-30"
-      />
+    <View className="flex-1 relative h-screen w-screen bg-blue-500">
+      <StatusBar barStyle={'light-content'} />
+      <View className="flex-row justify-around w-full absolute">
+        <Animated.Image
+          entering={FadeInUp.delay(200).duration(1000).springify()}
+          source={require('../assets/light.png')}
+          className="h-[225] w-[90]"
+        />
+        <Animated.Image
+          entering={FadeInUp.delay(400).duration(1000).springify()}
+          source={require('../assets/light.png')}
+          className="h-[160] w-[65] opacity-75"
+        />
+      </View>
       <TextComponent
-        style="text-[#000000] text-center top-11 font-semibold text-[50px] z-40"
+        style="text-white text-center top-11 font-semibold text-[50px] z-40"
         content="Login"
       />
       <KeyboardAvoidingView behavior="padding" className="flex-1 relative">
