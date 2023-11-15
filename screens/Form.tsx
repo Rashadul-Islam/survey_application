@@ -147,7 +147,7 @@ const Form: React.FC<ScreenType> = ({setUser, user}) => {
               />
               <TextComponent
                 content="Data previewing"
-                style="text-[22px] text-center text-black font-semi-bold"
+                style="text-[18px] text-center text-black font-semi-bold"
               />
               <PressableComponent
                 icon={<PencilSquareIcon size={25} color="black" />}
@@ -162,7 +162,7 @@ const Form: React.FC<ScreenType> = ({setUser, user}) => {
               />
               <TextComponent
                 content="Fill up the form carefully"
-                style="text-[22px] text-center text-black font-semi-bold ml-5"
+                style="text-[18px] text-center text-black font-semi-bold ml-5"
               />
             </View>
           )}

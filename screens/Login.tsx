@@ -134,11 +134,14 @@ const Login: React.FC<ScreenType> = ({setUser}) => {
             shadowColor: '#000',
           }}
           className="w-full absolute bottom-0 bg-[#D9D9D9] shadow-md rounded-t-[50px]">
-          <Image
-            source={require('../assets/loginpage.png')}
-            className="w-[200px] h-[200px] -top-[145px] mx-auto z-0"
-          />
-          <View className="w-[85%] mx-auto -top-[15%]">
+          <View className="w-full flex flex-row justify-center">
+            <Animated.Image
+              entering={FadeInUp.delay(200).duration(1000).springify()}
+              source={require('../assets/loginpage.png')}
+              className="w-[180px] h-[180px] -top-[130px] mx-auto absolute"
+            />
+          </View>
+          <View className="w-[85%] mx-auto mb-8 mt-16">
             <TextComponent
               style="text-red-500 text-[16px]"
               content={validationError.email}
